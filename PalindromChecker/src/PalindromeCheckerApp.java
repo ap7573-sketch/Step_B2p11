@@ -1,24 +1,71 @@
 public class PalindromeCheckerApp {
 
-    public static void main(String[] args) {
+    // Node class for Singly Linked List
+    static class Node {
+        char data;
+        Node next;
 
-        // UC1: Welcome Message
-        System.out.println("=================================");
-        System.out.println("        PALINDROME CHECKER       ");
-        System.out.println("=================================");
-        System.out.println("Version: 1.0");
-        System.out.println("Welcome to the Palindrome Checker Application!");
-        System.out.println("=================================");
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
 
-        // UC2: Hardcoded Palindrome Check
-        String word = "madam";
-        String reversed = "";
+    // Method to check palindrome
+    public static boolean isPalindrome(Node head) {
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+        if (head == null || head.next == null)
+            return true;
+
+        Node slow = head;
+        Node fast = head;
+
+        // Step 1: Find middle using fast & slow pointer
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        if (word.equals(reversed)) {
+        // Step 2: Reverse second half
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+
+        // Step 3: Compare first half and reversed second half
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data)
+                return false;
+
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+
+        String word = "madam";
+
+        // Convert string to linked list
+        Node head = new Node(word.charAt(0));
+        Node temp = head;
+
+        for (int i = 1; i < word.length(); i++) {
+            temp.next = new Node(word.charAt(i));
+            temp = temp.next;
+        }
+
+        if (isPalindrome(head)) {
             System.out.println(word + " is a Palindrome.");
         } else {
             System.out.println(word + " is NOT a Palindrome.");
