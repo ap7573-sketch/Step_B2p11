@@ -1,12 +1,9 @@
-// Service class (Encapsulation)
-class PalindromeChecker {
+import java.util.*;
 
-    // Method exposed to check palindrome
-    public boolean checkPalindrome(String word) {
+public class PalindromeCheckerApp {
 
-        if (word == null || word.length() == 0) {
-            return false;
-        }
+    // 1️⃣ Two Pointer Method
+    public static boolean twoPointerCheck(String word) {
 
         int start = 0;
         int end = word.length() - 1;
@@ -21,25 +18,67 @@ class PalindromeChecker {
 
         return true;
     }
-}
 
+    // 2️⃣ Stack Method
+    public static boolean stackCheck(String word) {
 
-// Application class
-public class PalindromeCheckerApp {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : word.toCharArray()) {
+            stack.push(c);
+        }
+
+        for (char c : word.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // 3️⃣ Deque Method
+    public static boolean dequeCheck(String word) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : word.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
         String word = "madam";
 
-        // Create object of service class
-        PalindromeChecker checker = new PalindromeChecker();
+        // Two Pointer Timing
+        long start1 = System.nanoTime();
+        boolean result1 = twoPointerCheck(word);
+        long end1 = System.nanoTime();
+        long time1 = end1 - start1;
 
-        boolean result = checker.checkPalindrome(word);
+        // Stack Timing
+        long start2 = System.nanoTime();
+        boolean result2 = stackCheck(word);
+        long end2 = System.nanoTime();
+        long time2 = end2 - start2;
 
-        if (result) {
-            System.out.println(word + " is a Palindrome.");
-        } else {
-            System.out.println(word + " is NOT a Palindrome.");
-        }
+        // Deque Timing
+        long start3 = System.nanoTime();
+        boolean result3 = dequeCheck(word);
+        long end3 = System.nanoTime();
+        long time3 = end3 - start3;
+
+        System.out.println("Two Pointer → Result: " + result1 + " | Time: " + time1 + " ns");
+        System.out.println("Stack       → Result: " + result2 + " | Time: " + time2 + " ns");
+        System.out.println("Deque       → Result: " + result3 + " | Time: " + time3 + " ns");
     }
 }
