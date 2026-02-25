@@ -1,15 +1,17 @@
 public class PalindromeCheckerApp {
 
-    public static boolean isPalindrome(String word) {
+    // Method to check palindrome after preprocessing
+    public static boolean isPalindrome(String input) {
 
         // Step 1: Normalize string
-        String normalized = word.replaceAll("\\s+", "")   // remove spaces
-                .toLowerCase();            // ignore case
+        // Remove all spaces using regex
+        String normalized = input.replaceAll("\\s+", "")
+                .toLowerCase();
 
+        // Step 2: Apply two-pointer logic
         int start = 0;
         int end = normalized.length() - 1;
 
-        // Step 2: Apply two-pointer logic
         while (start < end) {
             if (normalized.charAt(start) != normalized.charAt(end)) {
                 return false;
