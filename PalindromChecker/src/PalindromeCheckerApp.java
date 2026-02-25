@@ -12,23 +12,21 @@ public class PalindromeCheckerApp {
         System.out.println("Welcome to the Palindrome Checker Application!");
         System.out.println("=================================");
 
-        // UC6: Queue + Stack Based Palindrome Check
-        String word = "level";
+        // UC7: Deque-Based Optimized Palindrome Checker
+        String word = "radar";
 
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert characters
+        // Insert characters into deque
         for (char c : word.toCharArray()) {
-            queue.add(c);   // FIFO
-            stack.push(c);  // LIFO
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue vs pop
-        while (!queue.isEmpty()) {
-            if (!queue.remove().equals(stack.pop())) {
+        // Compare front and rear
+        while (deque.size() > 1) {
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
