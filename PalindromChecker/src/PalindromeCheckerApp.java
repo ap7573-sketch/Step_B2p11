@@ -10,15 +10,24 @@ public class PalindromeCheckerApp {
         System.out.println("Welcome to the Palindrome Checker Application!");
         System.out.println("=================================");
 
-        // UC2: Hardcoded Palindrome Check
+        // UC4: Two Pointer Technique
         String word = "madam";
-        String reversed = "";
+        char[] arr = word.toCharArray();
 
-        for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+        int start = 0;
+        int end = arr.length - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+            if (arr[start] != arr[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        if (word.equals(reversed)) {
+        if (isPalindrome) {
             System.out.println(word + " is a Palindrome.");
         } else {
             System.out.println(word + " is NOT a Palindrome.");
