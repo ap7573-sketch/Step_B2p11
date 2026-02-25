@@ -10,12 +10,12 @@ public class PalindromeCheckerApp {
         System.out.println("Welcome to the Palindrome Checker Application!");
         System.out.println("=================================");
 
-        // UC2: Hardcoded Palindrome Check
-        String word = "madam";
+        // UC3: Reverse using loop
+        String word = "racecar";
         String reversed = "";
 
         for (int i = word.length() - 1; i >= 0; i--) {
-            reversed = reversed + word.charAt(i);
+            reversed += word.charAt(i);
         }
 
         if (word.equals(reversed)) {
